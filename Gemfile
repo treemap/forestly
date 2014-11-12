@@ -42,3 +42,4 @@ gem 'spring',        group: :development
 gem 'devise'
 gem 'activerecord-postgis-adapter'
 gem 'pg'
+gem 'haml'
