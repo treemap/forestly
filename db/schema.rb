@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141112223011) do
+ActiveRecord::Schema.define(version: 20141114210608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,13 +40,6 @@ ActiveRecord::Schema.define(version: 20141112223011) do
     t.datetime "updated_at"
   end
 
-  create_table "plots", force: true do |t|
-    t.integer  "property_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.spatial  "boundaries",  limit: {:srid=>0, :type=>"geometry"}
-  end
-
   create_table "properties", force: true do |t|
     t.integer  "company_id"
     t.string   "name"
@@ -54,6 +47,44 @@ ActiveRecord::Schema.define(version: 20141112223011) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.spatial  "boundaries", limit: {:srid=>0, :type=>"geometry"}
+  end
+
+  create_table "soils", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tree_diameters", force: true do |t|
+    t.integer  "tree_inventories_id"
+    t.integer  "tree_id"
+    t.float    "tree_size"
+    t.float    "dbh"
+    t.float    "height"
+    t.float    "crown_width"
+    t.text     "overall_condition"
+    t.text     "possible_problems"
+    t.boolean  "disease",             default: false
+    t.integer  "soil_id"
+    t.text     "soil_condition"
+    t.text     "root_space"
+    t.text     "safety"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tree_inventories", force: true do |t|
+    t.integer  "property_id"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "trees", force: true do |t|
+    t.string   "name"
+    t.string   "latin_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "units", force: true do |t|
@@ -86,7 +117,7 @@ ActiveRecord::Schema.define(version: 20141112223011) do
     t.integer  "company_id"
     t.integer  "animal_id"
     t.spatial  "lonlat",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
-    t.datetime "checked_at",                                                          default: '2014-11-11 23:56:54'
+    t.datetime "checked_at",                                                          default: '2014-11-14 21:29:24'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
